@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  before_create :generate_token
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -15,5 +17,13 @@ class User < ApplicationRecord
     )
 
     user
+  end
+
+  private
+
+  def generate_token
+    begin
+      self.token = SecureRandom.hex
+    end while self.class.exists?(token: token)
   end
 end
