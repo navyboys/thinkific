@@ -8,7 +8,7 @@ module Api
       def reset
         if integer?(params[:current])
           value = params[:current].to_i
-          save_value(value)
+          save_integer(value)
           render json: { status: 'success', integer: value }
         else
           render json: { status: 'failed', message: 'Please reset with an integer.' }
@@ -16,12 +16,12 @@ module Api
       end
 
       def current
-        render json: { status: 'success', integer: current_value }
+        render json: { status: 'success', integer: current_integer }
       end
 
       def next
-        save_value(current_value.next)
-        render json: { status: 'success', integer: current_value }
+        save_integer(current_integer.next)
+        render json: { status: 'success', integer: current_integer }
       end
 
       private
@@ -30,18 +30,14 @@ module Api
         /\A[-+]?\d+\z/ === data
       end
 
-      def save_value(value)
-        @thinkific_integer.content = value
-        @thinkific_integer.save
-      end
-
-      def current_value
-        @thinkific_integer.content
-      end
-
       def restrict_access
-        authenticate_or_request_with_http_token do |token, options|
-          User.exists?(token: token)
+        if request.headers["HTTP_AUTHORIZATION"]
+          authenticate_or_request_with_http_token do |token, options|
+            User.exists?(token: token)
+          end
+        else
+          api_key = User.find_by_token(params[:token])
+          head :unauthorized unless api_key
         end
       end
     end

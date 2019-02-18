@@ -2,5 +2,23 @@
   .login
     .login-welcome
       %h1= 'Welcome to Thinkific API'
-      %h4= 'API Key: ' + current_user.token
-      %h4= 'Current Integer: ' + @thinkific_integer.content.to_s
+      %h4#token= 'API Key: ' + current_user.token
+      %h4
+        %span Current Integer:
+        %span#current-int= @thinkific_integer.content.to_s
+      %a#btn-next.btn.btn-success= 'Next'
+    .logout
+      = link_to 'Logout', logout_path, method: :delete
+
+:javascript
+
+  $('#btn-next').on('click', function() {
+    var $currentInt = $('#current-int');
+    // var token = $('#token').html();
+    var token = '6a12d664963edc1e79a56d719baa27cf';
+    var int = parseInt($currentInt.html());
+    $currentInt.html(int + 1);
+    $.get('api/v1/next',  { token: token }, function(data) {}).fail(function() {
+      $currentInt.html(int);
+    });
+  });
