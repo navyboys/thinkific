@@ -1,0 +1,2 @@
+class ThinkificInteger < ApplicationRecord
+end

@@ -3,5 +3,4 @@
     .login-welcome
       %h1= 'Welcome to Thinkific API'
       %h4= 'API Key: ' + current_user.token
-    -# .login-button
-    -#   = link_to 'Login with Google', user_google_oauth2_omniauth_authorize_path, class: 'btn btn-success'
+      %h4= 'Current Integer: ' + @thinkific_integer.content.to_s
