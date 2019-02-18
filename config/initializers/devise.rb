@@ -261,6 +261,14 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
+  secrets_yml = YAML.load(::File.read(::File.join(::File.dirname(__FILE__), '..', 'secrets.yml')))
+  environment = ENV['RACK_ENV'] || ENV['RAILS_ENV'] || 'development'
+
+  config.omniauth :google_oauth2,
+                  secrets_yml[environment]['google_client_id'],
+                  secrets_yml[environment]['google_client_secret'],
+                  {}
+
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
