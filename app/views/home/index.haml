@@ -1,18 +1,25 @@
-.login-wrapper
-  .login
-    .login-welcome
-      %h1= 'Welcome to Thinkific API'
-      %h4
+.row.title.justify-content-md-center
+  %h1= 'Thinkific API'
+.row.menu.justify-content-md-center
+  #email{style: 'padding-right: 10px'}= current_user.email
+  #logout= link_to 'Logout', logout_path, method: :delete
+.jumbotron{style: 'margin-top: 20px'}
+  .row
+    .col.col-md-4
+    .col.col-md-8
+      %p
         %span API Key:
         %span#token= current_user.token
-      %h4
+      %p
         %span Current Integer:
         %span#current-int= @thinkific_integer.content.to_s
-      %a#btn-next.btn.btn-success= 'Next'
-      %input#new-int{placeholder: 'New Integer'}
-      %a#btn-reset.btn.btn-primary= 'Reset'
-    .logout
-      = link_to 'Logout', logout_path, method: :delete
+      %p
+        %button#btn-next.btn.btn-primary= 'Next'
+      %p
+        .input-group{style: 'width: 360px'}
+          .input-group-prepend
+            %button#btn-reset.btn.btn-primary{type: 'button'} Reset with
+          %input.form-control{'aria-describedby': 'btn-reset', type: 'text'}
 
 :javascript
 
