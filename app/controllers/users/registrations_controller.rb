@@ -8,15 +8,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if params[:commit]
       super
     else
-      begin
-        user = User.create!(
-          email: params['email'],
-          password: params['password']
-        )
-        render json: { status: 'success', api_key: user.token }
-      rescue StandardError => e
-        render json: { status: 'failed', message: e.message }
+      @user = User.new(user_params)
+      if @user.save
+        render json: { status: 'success', api_key: @user.token }
+      else
+        render json: { status: 'failed', message: @user.errors }
       end
     end
+  end
+
+  private
+
+  def user_params
+    params.permit(:email, :password)
   end
 end
