@@ -1,24 +1,38 @@
-# README
+# Thinkific API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Endpoints
 
-Things you may want to cover:
+###### Registration
 
-* Ruby version
+```bash
+curl -X POST http://localhost:3000/users --data "email=ben@test.com&password=ben123"
+# {"status":"success","api_key":"038b4c3e17e277daee6946709fc9d1bc"
+```
 
-* System dependencies
+###### Get Current Integer
 
-* Configuration
+```bash
+curl http://localhost:3000/api/v1/current -H 'Authorization: Token token="038b4c3e17e277daee6946709fc9d1bc"'
+# {"status":"success","integer":91}
+```
 
-* Database creation
+###### Get Next Integer
 
-* Database initialization
+```bash
+curl http://localhost:3000/api/v1/next -H 'Authorization: Token token="038b4c3e17e277daee6946709fc9d1bc"'
+# {"status":"success","integer":92}
+```
 
-* How to run the test suite
+###### Reset Integer
 
-* Services (job queues, cache servers, search engines, etc.)
+```bash
+curl -X PUT http://localhost:3000/api/v1/current -H 'Authorization: Token token="038b4c3e17e277daee6946709fc9d1bc"' --data current=0
+# {"status":"success","integer":0}
+```
 
-* Deployment instructions
+## Others
 
-* ...
+- UI supported: Signup page & Single Page to consume the API
+- OAuth with Google supported
+- Github URL:
+- App URL: 
