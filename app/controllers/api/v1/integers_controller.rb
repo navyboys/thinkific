@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   module V1
     class IntegersController < ApplicationController
@@ -27,12 +29,12 @@ module Api
       private
 
       def integer?(data)
-        /\A[-+]?\d+\z/ === data
+        /\A[-+]?\d+\z/.match?(data)
       end
 
       def restrict_access
         if request.headers["HTTP_AUTHORIZATION"]
-          authenticate_or_request_with_http_token do |token, options|
+          authenticate_or_request_with_http_token do |token, _options|
             User.exists?(token: token)
           end
         else

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   before_create :generate_token
 
@@ -13,7 +15,7 @@ class User < ApplicationRecord
 
     user ||= User.create(
       email: data['email'],
-      password: Devise.friendly_token[0,20]
+      password: Devise.friendly_token[0, 20]
     )
 
     user
@@ -22,8 +24,13 @@ class User < ApplicationRecord
   private
 
   def generate_token
-    begin
+    # begin
+    #   self.token = SecureRandom.hex
+    # end while self.class.exists?(token: token)
+
+    loop do
       self.token = SecureRandom.hex
-    end while self.class.exists?(token: token)
+      break self.class.exists?(token: token)
+    end
   end
 end
