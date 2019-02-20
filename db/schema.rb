@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2019_02_18_195150) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "thinkific_integers", force: :cascade do |t|
     t.integer "content"
     t.datetime "created_at", null: false
