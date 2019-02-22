@@ -40,4 +40,10 @@ curl -X PUT https://navy-thinkific.herokuapp.com/api/v1/current -H 'Authorizatio
 
 ## Screenshots
 
-![Home Page](https://ibb.co/JqLp0fx)
+###### Registration
+
+![Registration](https://i.ibb.co/rGVTg6m/Screen-Shot-2019-02-20-at-11-47-17-AM.png)
+
+###### Home Page
+
+![Home Page](https://i.ibb.co/f9RNBh8/Screen-Shot-2019-02-20-at-11-40-19-AM.png)
